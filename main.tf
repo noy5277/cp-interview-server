@@ -7,15 +7,15 @@ module "vpc" {
 }
 
 module "subnets" {
-  source            = "./modules/subnet"  
-  for_each          = var.subnets
-  vpc_id            = module.vpc.id
-  cidr_block        = each.value.cidr_block
-  availability_zone = "${var.aws_region}${each.value.availability_zone}"
+  source                  = "./modules/subnet"
+  for_each                = var.subnets
+  vpc_id                  = module.vpc.id
+  cidr_block              = each.value.cidr_block
+  availability_zone       = "${var.aws_region}${each.value.availability_zone}"
   map_public_ip_on_launch = each.value.type == "public" ? true : false
-  tags              = {
-    Name = "${var.eks_name}-${var.env}-${each.value.type}-${each.value.availability_zone}"
-    "kubernetes.io/role/elb"                               = "1"
+  tags = {
+    Name                                               = "${var.eks_name}-${var.env}-${each.value.type}-${each.value.availability_zone}"
+    "kubernetes.io/role/elb"                           = "1"
     "kubernetes.io/cluster/${var.env}-${var.eks_name}" = "owned"
   }
 }
@@ -40,8 +40,8 @@ resource "aws_route_table" "public" {
 }
 
 resource "aws_route_table_association" "association" {
-  for_each = var.subnets
-  subnet_id = module.subnets[each.key].id
+  for_each       = var.subnets
+  subnet_id      = module.subnets[each.key].id
   route_table_id = aws_route_table.public.id
 }
 

@@ -4,12 +4,12 @@ variable "s3-backend-name" {
 }
 
 variable "env" {
-  description = "eks environments. examples: dev,stage,prod" 
+  description = "eks environments. examples: dev,stage,prod"
 }
 
 variable "eks_name" {
   description = "The eks cluster name"
-  type = string
+  type        = string
 }
 
 variable "aws_region" {
