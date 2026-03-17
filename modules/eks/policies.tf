@@ -52,43 +52,6 @@ resource "aws_iam_role_policy_attachment" "EC2InstanceProfileForImageBuilderECRC
   role       = aws_iam_role.cluster.name
 }
 
-####################################### node group ###################################
-
-resource "aws_iam_role" "node_group" {
-  name = "${var.cluster_name}-node-group"
-  assume_role_policy = jsonencode({
-    Statement = [{
-      Action = "sts:AssumeRole"
-      Effect = "Allow"
-      Principal = {
-        Service = "ec2.amazonaws.com"
-      }
-    }]
-    Version = "2012-10-17"
-  })
-  tags = merge(
-    var.tags,
-    {
-      "kubernetes.io/cluster/${var.cluster_name}" = "owned"
-    }
-  )
-}
-
-resource "aws_iam_role_policy_attachment" "AmazonEKSWorkerNodePolicy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
-  role       = aws_iam_role.node_group.name
-}
-
-resource "aws_iam_role_policy_attachment" "AmazonEKS_CNI_Policy" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
-  role       = aws_iam_role.node_group.name
-}
-
-resource "aws_iam_role_policy_attachment" "AmazonEC2ContainerRegistryReadOnly" {
-  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
-  role       = aws_iam_role.node_group.name
-}
-
 ####################################### admin role rbac ###################################
 
 resource "aws_iam_role" "eks_admin" {

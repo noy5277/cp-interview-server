@@ -45,3 +45,8 @@ resource "aws_route_table_association" "association" {
   route_table_id = aws_route_table.public.id
 }
 
+variable "ecr_repository_name" {
+  type        = string
+  description = "ecr repository name"
+}
+

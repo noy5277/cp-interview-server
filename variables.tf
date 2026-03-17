@@ -45,3 +45,50 @@ variable "subnets" {
   }))
   description = "Eks subnetes"
 }
+
+variable "kubernetes_resources_ip_cidr" {
+  description = "The CIDR block to assign Kubernetes pod and service IP addresses from"
+  type        = string
+  default     = "172.16.0.0/16"
+}
+
+variable "node_groups" {
+  description = "A list of maps, where each map represents a node group with its configuration. Each map should contain the following keys: name (string), instance_types (list of strings), capacity_type (string, either 'ON_DEMAND' or 'SPOT'), min_nodes (number), max_nodes (number), desired_nodes (number), and node_group_label (string)."
+  type = map(object({
+    instance_types     = list(string)
+    security_group_ids = list(string)
+    subnets_ids        = list(string)
+    capacity_type      = string
+    min_nodes          = number
+    max_nodes          = number
+    desired_nodes      = number
+    label              = string
+  }))
+  default = {}
+}
+
+variable "eks_version" {
+  description = "The version of the EKS cluster"
+  type        = string
+}
+
+variable "tags" {
+  type        = map(string)
+  description = "A map of additional custom tags to use for the eks cluster resources"
+}
+
+variable "endpoint_private_access" {
+  description = "Enable private access endpoint to cluster"
+  type        = string
+}
+
+variable "endpoint_public_access" {
+  description = "Enable public access endpoint to cluster"
+  type        = string
+}
+
+variable "addons" {
+  type        = list(string)
+  description = "Eks addons names"
+  default     = []
+}

@@ -30,23 +30,3 @@ resource "aws_eks_cluster" "eks-cluster" {
   ]
 }
 
-resource "aws_eks_addon" "coredns" {
-  cluster_name = aws_eks_cluster.eks-cluster.name
-  addon_name   = "coredns"
-
-  depends_on = [module.fargate, module.node_group]
-}
-
-resource "aws_eks_addon" "vpc-cni" {
-  cluster_name = aws_eks_cluster.eks-cluster.name
-  addon_name   = "vpc-cni"
-
-  depends_on = [module.fargate, module.node_group]
-}
-
-resource "aws_eks_addon" "kube-proxy" {
-  cluster_name = aws_eks_cluster.eks-cluster.name
-  addon_name   = "kube-proxy"
-
-  depends_on = [module.fargate, module.node_group]
-}

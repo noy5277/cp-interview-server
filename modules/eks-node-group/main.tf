@@ -34,7 +34,7 @@ resource "aws_eks_node_group" "worker-node-group" {
   cluster_name    = var.cluster_name
   version = var.eks_version
   node_group_name = "${var.cluster_name}-nodegroup-${random_string.random.result}"
-  node_role_arn   = var.node_role_arn
+  node_role_arn   = aws_iam_role.node_group.arn
   subnet_ids      = var.subnets_ids
 
   instance_types = var.instance_types

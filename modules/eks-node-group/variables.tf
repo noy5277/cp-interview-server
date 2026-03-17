@@ -62,8 +62,3 @@ variable "desired_nodes" {
   default     = "2"
   type        = string
 }
-
-variable "node_role_arn" {
-  description = "The ARN of the IAM role to use for the EKS node group."
-  type = string
-}
