@@ -41,3 +41,8 @@ module "lbc" {
   eks_name = module.eks_cluster.name
   depends_on = [module.eks_node_group]
 }
+
+module "argocd" {
+  source = "./modules/argocd"
+  aks_cluster_name = module.eks_cluster.name
+}

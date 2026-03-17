@@ -42,7 +42,7 @@ resource "aws_eks_node_group" "worker-node-group" {
 
   launch_template {
     name    = aws_launch_template.eks-node-launch-template.name
-    version = "$Default"
+    version = "1"
   }
 
   update_config {
