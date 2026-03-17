@@ -39,4 +39,5 @@ module "lbc" {
   source = "./modules/lbc"
   vpc_id = module.vpc.id
   eks_name = module.eks_cluster.name
+  depends_on = [module.eks_node_group]
 }
